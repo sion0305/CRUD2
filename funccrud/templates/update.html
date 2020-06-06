@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <title>씨알유디 연습</title>
+        <style>
+             @font-face { font-family: 'Cafe24Danjunghae'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Danjunghae.woff') format('woff'); font-weight: normal; font-style: normal; }
+            
+            .body{
+                margin: 30px;
+                padding: 20px;
+                border: 1px black solid;
+                background-color: darkseagreen;
+                width : 600px;
+            }
+            h1{
+                font-family: Cafe24Danjunghae;
+                color:darkgreen;
+                
+            }
+            .area{
+                width : 300px;
+                height: 300px;
+            }
+            .date{
+                background-color: yellow;
+            }
+            .n{
+                color:red;
+            }
+        </style>
+    </head>
+    {% extends 'base.html' %}
+
+    {% block contents %}
+    <body>
+        <div class="body">
+            <h1>글쓰기</h1>
+            <br>
+            <form action="{% url 'update' blog.id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}<!--공격 방어-->
+                <p>Title : <input type="text" name="t" value="{{blog.title}}"></p>
+                <p>file : <input type="file" name="p"><br>
+                <span class="n">*사진필수 선택</span></p>
+                <p>date : <span class="date">{{blog.pub_date}}</span></p>
+                <textarea name="b" class="area">{{blog.body}}</textarea><br>
+                <input type="submit" value="확인">
+            </form>
+        </div>
+    </body>
+    {% endblock %}
+</html>
